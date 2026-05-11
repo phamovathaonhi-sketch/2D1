@@ -10,6 +10,7 @@ import java.io.IOException;
 
 public class Player extends Entity{
     S1 gamePanel;
+
     Keyhandler keyhandler;
 
     public Player(S1 gamePanel, Keyhandler keyhandler) {
@@ -18,7 +19,6 @@ public class Player extends Entity{
         setDefault();
         getImage();
     }
-
     public void setDefault(){
         x= 100;
         y=100;

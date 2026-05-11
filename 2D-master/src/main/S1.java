@@ -18,18 +18,23 @@ public class S1 extends JPanel implements Runnable {
     public int MAXSCREENCOL=16;
     public int MAXSCREENROW = 12;
     public int originalTileSize = 16;
-    public int scale = 4;
-    public int tileSize = originalTileSize * scale;
+    public int scale = 3;
+    public final int tileSize = originalTileSize * scale;
     public int screenheight = tileSize* MAXSCREENROW;
     public int screenwidth = tileSize * MAXSCREENCOL;
+    // world settings
+    public final int  maxWorldCol = 16;
+    public final int maxWorldRow = 12;
+    public final int worldWidth = tileSize* maxWorldCol;
+    public final int worldHeight = tileSize * maxWorldRow;
 
     // ===== FPS =====
     int FPS = 60;
 
     // ===== GAME OBJECTS =====
-    Keyhandler K = new Keyhandler();
     TileManager tileManager = new TileManager(this);
-    Player p = new Player(this, K);
+    Keyhandler K = new Keyhandler();
+    public Player p = new Player(this, K);
 
     public S1() {
         jframe = new JFrame("S1");
