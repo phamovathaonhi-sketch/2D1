@@ -76,7 +76,7 @@ public class S1 extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        double drawInterval = 1_000_000_000.0 / FPS;
+        double drawInterval = 1_000_000_000/ FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (gamethread != null) {

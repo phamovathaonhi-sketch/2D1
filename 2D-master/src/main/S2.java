@@ -1,5 +1,6 @@
 package main;
 
+import Tile.Tile;
 import Tile.TileManager;
 import gameChar.Player;
 
@@ -19,14 +20,14 @@ public class S2 extends JPanel implements Runnable {
     public int MAXSCREENROW = 12;
     public int originalTileSize = 16;
     public int scale = 4;
-    public int tileSize = originalTileSize * scale;
+    public final int tileSize = originalTileSize * scale;
     public int screenheight = tileSize * MAXSCREENROW;
     public int screenwidth = tileSize * MAXSCREENCOL;
 
     // ===== FPS =====
     int FPS = 60;
 
-    // ===== GAME OBJECTS =====
+    // ===== GAME OBJECTS ====
     Keyhandler K = new Keyhandler();
 
     public S2() {
@@ -62,8 +63,38 @@ public class S2 extends JPanel implements Runnable {
         jframe.setVisible(true);
     }
 
+
     @Override
     public void run() {
+        double drawInterval = 1_000_000_000 / FPS;
+        double nextDraw = System.nanoTime() + drawInterval;
+
+        while (gamethread == null){
+            repaint();
+            try {
+                double remainingTime = nextDraw - System.nanoTime();
+                remainingTime /= 1_000_000;
+                if (remainingTime <=0){
+                    remainingTime = 0;
+                }
+                Thread.sleep((long) remainingTime);
+                nextDraw += drawInterval;
+            } catch (RuntimeException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+
+        Graphics2D g2 = (Graphics2D) g;
+
+        g2.dispose();
 
     }
-}
+
+    }
