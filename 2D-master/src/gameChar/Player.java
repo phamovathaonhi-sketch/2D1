@@ -1,7 +1,8 @@
 package gameChar;
+import main.GamePanel;
 import main.Keyhandler;
 import main.S1;
-import main.S2;
+
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,21 +10,36 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public class Player extends Entity{
-    S1 gamePanel;
-
+    GamePanel gamePanel;
     Keyhandler keyhandler;
+    public int sX;
+    public int sY;
 
-    public Player(S1 gamePanel, Keyhandler keyhandler) {
+
+
+    public Player(GamePanel gamePanel, Keyhandler keyhandler) {
         this.gamePanel = gamePanel;
         this.keyhandler = keyhandler;
+        sX = gamePanel.screenwidth/2 - (gamePanel.tileSize/2);
+        sY = gamePanel.screenheight/2 - (gamePanel.tileSize/2);
         setDefault();
         getImage();
     }
     public void setDefault(){
-        x= 100;
-        y=100;
-        speed = 4;
-        direction = "down";
+        for (int row = 0; row < gamePanel.maxWorldRow; row++) {
+            for (int col = 0; col < gamePanel.maxWorldCol; col++) {
+
+                if (gamePanel.tileManager.mapTileNum[col][row] == 2) {
+
+                    worldx = col * gamePanel.tileSize;
+                    worldy = row * gamePanel.tileSize;
+
+                    speed = 4;
+                    direction = "down";
+                    return;
+                }
+            }
+        }
     }
     public void getImage(){
         try {
@@ -44,16 +60,16 @@ public class Player extends Entity{
         if (keyhandler.downPressed == true || keyhandler.upPressed == true || keyhandler.leftPressed == true || keyhandler.rightPressed == true){
             if (keyhandler.upPressed == true){
                 direction ="up";
-                y-=speed;
+                worldy-=speed;
             } else if (keyhandler.downPressed == true) {
                 direction ="down";
-                y+=speed;
+                worldy+=speed;
             } else if (keyhandler.rightPressed == true) {
                 direction ="right";
-                x += speed;
+                worldx += speed;
             } else if (keyhandler.leftPressed == true) {
                 direction ="left";
-                x -= speed;
+                worldx -= speed;
             }
             spriteCounter++;
             if (spriteCounter > 12){
@@ -106,6 +122,6 @@ public class Player extends Entity{
                 break;
 
         }
-        g2.drawImage(img, x,y, gamePanel.tileSize,gamePanel.tileSize, null);
+        g2.drawImage(img, sX,sY, gamePanel.tileSize,gamePanel.tileSize, null);
     }
 }

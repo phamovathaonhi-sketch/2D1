@@ -9,24 +9,10 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class S1 extends JPanel implements Runnable {
+public class S1 extends GamePanel{
 
     private JFrame jframe;
     private Thread gamethread;
-
-    // ===== TILE SETTINGS =====
-    public int MAXSCREENCOL=16;
-    public int MAXSCREENROW = 12;
-    public int originalTileSize = 16;
-    public int scale = 3;
-    public final int tileSize = originalTileSize * scale;
-    public int screenheight = tileSize* MAXSCREENROW;
-    public int screenwidth = tileSize * MAXSCREENCOL;
-    // world settings
-    public final int  maxWorldCol = 16;
-    public final int maxWorldRow = 12;
-    public final int worldWidth = tileSize* maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
 
     // ===== FPS =====
     int FPS = 60;
@@ -34,7 +20,7 @@ public class S1 extends JPanel implements Runnable {
     // ===== GAME OBJECTS =====
     TileManager tileManager = new TileManager(this);
     Keyhandler K = new Keyhandler();
-    public Player p = new Player(this, K);
+
 
     public S1() {
         jframe = new JFrame("S1");

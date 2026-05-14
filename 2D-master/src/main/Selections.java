@@ -53,6 +53,7 @@ public class Selections extends JPanel implements Runnable {
         JButton fish = createFishButton(480, 300);
         fish.addActionListener(e -> {
            S2 s2 = new S2();
+           s2.startGamethread();
             running = false;
             jframe.dispose();
         });

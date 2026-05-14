@@ -10,25 +10,16 @@ import java.awt.*;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class S2 extends JPanel implements Runnable {
+public class S2 extends GamePanel {
 
     private JFrame jframe;
     private Thread gamethread;
-
-    // ===== TILE SETTINGS =====
-    public int MAXSCREENCOL = 16;
-    public int MAXSCREENROW = 12;
-    public int originalTileSize = 16;
-    public int scale = 4;
-    public final int tileSize = originalTileSize * scale;
-    public int screenheight = tileSize * MAXSCREENROW;
-    public int screenwidth = tileSize * MAXSCREENCOL;
-
     // ===== FPS =====
     int FPS = 60;
 
     // ===== GAME OBJECTS ====
     Keyhandler K = new Keyhandler();
+
 
     public S2() {
         jframe = new JFrame("S2");
@@ -61,15 +52,21 @@ public class S2 extends JPanel implements Runnable {
 
         jframe.add(this);
         jframe.setVisible(true);
+
     }
 
+    public void startGamethread() {
+        gamethread = new Thread(this);
+        gamethread.start();
+    }
 
     @Override
     public void run() {
         double drawInterval = 1_000_000_000 / FPS;
         double nextDraw = System.nanoTime() + drawInterval;
 
-        while (gamethread == null){
+        while (gamethread != null){
+            update();
             repaint();
             try {
                 double remainingTime = nextDraw - System.nanoTime();
@@ -86,6 +83,10 @@ public class S2 extends JPanel implements Runnable {
             }
         }
     }
+    public void update(){
+        p.update();
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -93,6 +94,7 @@ public class S2 extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
+        p.paint(g2);
         g2.dispose();
 
     }
