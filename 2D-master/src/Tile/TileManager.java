@@ -13,7 +13,7 @@ public class TileManager {
 
     GamePanel gp;
     Tile[] tile;
-    int mapTileNum[][];
+   public int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
         this.gp = gp;

@@ -16,8 +16,6 @@ public class S2 extends GamePanel {
     private Thread gamethread;
     // ===== FPS =====
     int FPS = 60;
-
-    // ===== GAME OBJECTS ====
     Keyhandler K = new Keyhandler();
 
 

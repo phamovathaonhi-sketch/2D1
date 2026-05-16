@@ -17,10 +17,6 @@ public class S1 extends GamePanel{
     // ===== FPS =====
     int FPS = 60;
 
-    // ===== GAME OBJECTS =====
-    TileManager tileManager = new TileManager(this);
-    Keyhandler K = new Keyhandler();
-
 
     public S1() {
         jframe = new JFrame("S1");

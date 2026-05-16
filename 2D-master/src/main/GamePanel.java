@@ -19,7 +19,12 @@ public abstract class GamePanel extends JPanel implements Runnable  {
     public final int maxWorldRow = 50;
     public final int worldWidth = tileSize* maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
-    public Player p = new Player(this, K);
     public TileManager tileManager;
+    public Player p;
+
+    public GamePanel() {
+        tileManager = new TileManager(this);
+        p = new Player(this, K);
+    }
 
 }
