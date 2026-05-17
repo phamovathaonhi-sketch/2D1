@@ -75,6 +75,32 @@ public class TileManager {
             e.printStackTrace();
         }
     }
+    public void loadMap2() {
+        try {
+            InputStream is = getClass().getResourceAsStream("/map/Map1.txt");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+
+            int row = 0;
+
+            while (row < gp.maxWorldRow) {
+
+                String line = br.readLine();
+                String[] num = line.split(" ");
+
+                for (int col = 0; col < gp.maxWorldCol; col++) {
+                    int number = Integer.parseInt(num[col]);
+                    mapTileNum[col][row] = number;
+                }
+
+                row++;
+            }
+
+            br.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public void draw(Graphics2D g2) {
         int worldcol = 0;
         int worldrow = 0;

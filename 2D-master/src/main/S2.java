@@ -1,9 +1,5 @@
 package main;
 
-import Tile.Tile;
-import Tile.TileManager;
-import gameChar.Player;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -16,16 +12,18 @@ public class S2 extends GamePanel {
     private Thread gamethread;
     // ===== FPS =====
     int FPS = 60;
-    Keyhandler K = new Keyhandler();
+
 
 
     public S2() {
         jframe = new JFrame("S2");
         init();
+        tileManager.loadMap2();
 
         this.addKeyListener(K);
         this.setFocusable(true);
         this.requestFocusInWindow();
+
     }
 
     private void init() {
@@ -91,6 +89,7 @@ public class S2 extends GamePanel {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
+        tileManager.draw(g2);
 
         p.paint(g2);
         g2.dispose();
