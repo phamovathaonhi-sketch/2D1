@@ -1,5 +1,7 @@
 package main;
 
+import Mbar.MBar;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;

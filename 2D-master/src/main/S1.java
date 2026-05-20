@@ -1,5 +1,6 @@
 package main;
 
+import Mbar.MBar;
 import Tile.TileManager;
 import gameChar.Player;
 
@@ -13,6 +14,7 @@ public class S1 extends GamePanel{
 
     private JFrame jframe;
     private Thread gamethread;
+    private MBar bar;
 
     // ===== FPS =====
     int FPS = 60;
@@ -41,11 +43,13 @@ public class S1 extends GamePanel{
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        JButton mBar = MenuButton(200,200);
+        mBar.addActionListener(e -> new MBar());
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.setBounds(0, 0, screenwidth, screenheight);
         this.setDoubleBuffered(true);
+        this.add(mBar);
 
         jframe.add(this);
         jframe.setVisible(true);
@@ -55,6 +59,19 @@ public class S1 extends GamePanel{
         gamethread = new Thread(this);
         gamethread.start();
     }
+
+    public JButton MenuButton(int x, int y){
+        JButton button = new JButton();
+        button.setSize(50,50);
+        button.setLocation(x,y);
+        button.setBackground(new Color(238, 154, 154));
+        button.addActionListener(e ->{
+            new MBar();
+        });
+        return button;
+    }
+
+
 
     @Override
     public void run() {
