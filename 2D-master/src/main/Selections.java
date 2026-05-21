@@ -59,9 +59,15 @@ public class Selections extends JPanel implements Runnable {
             running = false;
             jframe.dispose();
         });
+        //test button
+        JButton testbutton = createTestButton(280, 100);
+        testbutton.addActionListener(e -> {
+                MBar mbar = new MBar();
+        });
 
         this.add(cake);
         this.add(fish);
+        this.add(testbutton);
 
         startGameThread();
         jframe.setVisible(true);
@@ -98,6 +104,15 @@ public class Selections extends JPanel implements Runnable {
             button2.setIcon(new ImageIcon(scaled));
         }
         return button2;
+    }
+
+    public JButton createTestButton(int x, int y ){
+        JButton jbutton3 = new JButton();
+        jbutton3.setBounds(x,y, 50,50);
+        jbutton3.setBackground(new Color(0,0,0));
+        return jbutton3;
+
+
     }
 
     private void startGameThread() {
