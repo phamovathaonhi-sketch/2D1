@@ -16,7 +16,7 @@ public class S2 extends GamePanel {
 
 
     public S2() {
-        jframe = new JFrame("S2");
+        jframe = new JFrame("Farm2");
         init();
         tileManager.loadMap2();
 

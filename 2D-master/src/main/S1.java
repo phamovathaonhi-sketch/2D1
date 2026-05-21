@@ -21,7 +21,7 @@ public class S1 extends GamePanel{
 
 
     public S1() {
-        jframe = new JFrame("S1");
+        jframe = new JFrame("Farm1");
         init();
 
         this.addKeyListener(K);
