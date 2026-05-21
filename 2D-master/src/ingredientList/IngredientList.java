@@ -1,7 +1,8 @@
-package main;
+package ingredientList;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.*;
 
 public class IngredientList {
     private JFrame jframe;
@@ -23,5 +24,13 @@ public class IngredientList {
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jframe.setLayout(new BorderLayout());
         jframe.add(scrollPane, BorderLayout.CENTER);
+        InputStream is = getClass().getResourceAsStream("/map/ListingredientCAKE.txt");
+        BufferedReader br  = new BufferedReader(new InputStreamReader(is));
+        try {
+            String line = br.readLine();
+            String[] num = line.split(" ");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
