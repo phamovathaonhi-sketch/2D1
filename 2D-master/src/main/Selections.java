@@ -60,7 +60,7 @@ public class Selections extends JPanel implements Runnable {
             jframe.dispose();
         });
         //test button
-        JButton testbutton = createTestButton(280, 100);
+        JButton testbutton = createTestButton(0, 0);
         testbutton.addActionListener(e -> {
                 MBar mbar = new MBar();
         });
