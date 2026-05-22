@@ -1,5 +1,4 @@
 package Mbar;
-
 import main.S1;
 import main.S2;
 import main.Selections;
@@ -69,6 +68,4 @@ public class MBar extends JPanel {
 
         return end;
     }
-
-
 }
