@@ -62,7 +62,7 @@ public class Selections extends JPanel implements Runnable {
         //test button
         JButton testbutton = createTestButton(0, 0);
         testbutton.addActionListener(e -> {
-                MBar mbar = new MBar();
+                MBar mbar = new MBar("S1");
         });
 
         this.add(cake);
@@ -110,6 +110,7 @@ public class Selections extends JPanel implements Runnable {
         JButton jbutton3 = new JButton();
         jbutton3.setBounds(x,y, 50,50);
         jbutton3.setBackground(new Color(0,0,0));
+        jbutton3.setVisible(true);
         return jbutton3;
 
 

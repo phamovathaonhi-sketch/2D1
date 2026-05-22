@@ -43,8 +43,8 @@ public class S1 extends GamePanel{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        JButton mBar = MenuButton(200,200);
-        mBar.addActionListener(e -> new MBar());
+        JButton mBar = MenuButton(0,0);
+        mBar.addActionListener(e -> new MBar("S1"));
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         this.setBounds(0, 0, screenwidth, screenheight);
@@ -66,7 +66,7 @@ public class S1 extends GamePanel{
         button.setLocation(x,y);
         button.setBackground(new Color(238, 154, 154));
         button.addActionListener(e ->{
-            new MBar();
+            new MBar("S1");
         });
         return button;
     }
