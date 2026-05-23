@@ -22,6 +22,7 @@ public class Player extends Entity{
         this.keyhandler = keyhandler;
         sX = gamePanel.screenwidth/2 - (gamePanel.tileSize/2);
         sY = gamePanel.screenheight/2 - (gamePanel.tileSize/2);
+        solidArea = new Rectangle(8,16, 32, 32);
         setDefault();
         getImage();
     }
@@ -60,16 +61,32 @@ public class Player extends Entity{
         if (keyhandler.downPressed == true || keyhandler.upPressed == true || keyhandler.leftPressed == true || keyhandler.rightPressed == true){
             if (keyhandler.upPressed == true){
                 direction ="up";
-                worldy-=speed;
             } else if (keyhandler.downPressed == true) {
                 direction ="down";
-                worldy+=speed;
             } else if (keyhandler.rightPressed == true) {
                 direction ="right";
-                worldx += speed;
             } else if (keyhandler.leftPressed == true) {
                 direction ="left";
-                worldx -= speed;
+            }
+            // if collision = false then player can  move
+            collisionON = false;
+            gamePanel.c.checkTile(this);
+            if (collisionON == false){
+                switch (direction){
+                    case "up":
+                        worldy-=speed;
+                        break;
+                    case "down":
+                        worldy+=speed;
+                        break;
+                    case "right":
+                        worldx += speed;
+                        break;
+                    case "left":
+                        worldx -= speed;
+                        break;
+
+                }
             }
             spriteCounter++;
             if (spriteCounter > 12){
