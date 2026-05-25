@@ -52,7 +52,7 @@ public class Selections extends JPanel implements Runnable {
             S1 s1 = new S1();
             s1.startGamethread();
             MBar m = new MBar();
-            m.setVisible(false);
+            m.setVisible(true);
             running = false;
             jframe.dispose();
         });

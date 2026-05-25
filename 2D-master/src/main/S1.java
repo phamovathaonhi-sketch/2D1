@@ -37,7 +37,9 @@ public class S1 extends GamePanel {
         uiPanel = new JPanel();
         uiPanel.setLayout(null);
         uiPanel.setOpaque(false);
-        uiPanel.setBounds(0, 0, screenwidth, screenheight);
+        uiPanel.setSize(screenwidth,screenheight);
+        uiPanel.setLocation(0,0);
+
 
         // MENU BAR (hidden at start)
         menu = new MBar();
