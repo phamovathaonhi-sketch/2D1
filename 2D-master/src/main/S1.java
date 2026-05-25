@@ -43,7 +43,7 @@ public class S1 extends GamePanel {
         menu = new MBar();
         menu.setVisible(true);
         // MENU BUTTON
-        JButton menuButton = new JButton("Menu");
+        JButton menuButton = new JButton("");
         menuButton.setBounds(10, 10, 80, 40);
         menuButton.setBackground(new Color(0,0,0));
 
