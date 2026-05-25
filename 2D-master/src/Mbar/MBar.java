@@ -1,4 +1,5 @@
 package Mbar;
+import ingredientList.IngredientList;
 import main.S1;
 import main.S2;
 import main.Selections;
@@ -9,22 +10,24 @@ import java.awt.*;
 
 public class MBar extends JPanel {
     private JFrame jFrame;
-    private Thread thread;
-    Selections selections;
+    private IngredientList ingredientList;
+    private String recipeType;
 
     S1 s1;
 
 
-    public MBar(){
-
+    public MBar(IngredientList ingredientList, String recipeType){
+        this.ingredientList= ingredientList;
+        this.recipeType = recipeType;
         jFrame = new JFrame("Menu Bar");
         init();
     }
 
     public void init(){
         jFrame.setSize(200, 320);
-        jFrame.setLocationRelativeTo(null);
+        jFrame.setLocation(0,0);
         jFrame.setResizable(false);
+        jFrame.setVisible(true);
 
         this.setLayout(null);
 
@@ -43,6 +46,12 @@ public class MBar extends JPanel {
 
         JButton ingredientbutton = ingredientButton(40, 190);
         ingredientbutton.addActionListener(e -> {
+            if (recipeType.equals("CAKE")){
+                ingredientList.loadCake();
+            } else if (recipeType.equals("SUSHI")) {
+                ingredientList.loadSushi();
+            }
+            ingredientList.showWindow();
         });
         JButton instructionsbutton = instructionsButton(40,240);
 

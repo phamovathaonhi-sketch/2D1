@@ -1,6 +1,7 @@
 package main;
 
 import Mbar.MBar;
+import ingredientList.IngredientList;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,11 +11,14 @@ public class S1 extends GamePanel {
     private JFrame jframe;
     private JPanel uiPanel;
     private MBar menu;
+    private IngredientList ingredientList;
+    private String recipeType = "CAKE";
 
     private Thread gamethread;
     int FPS = 60;
 
-    public S1() {
+    public S1(IngredientList ingredientList) {
+        this.ingredientList = ingredientList;
         jframe = new JFrame("Farm1");
         init();
 
@@ -28,36 +32,33 @@ public class S1 extends GamePanel {
         jframe.setLocationRelativeTo(null);
         jframe.setResizable(false);
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jframe.setLayout(null);
+
+        // LAYERED PANE
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setBounds(0, 0, screenwidth, screenheight);
 
         // GAME LAYER
         this.setBounds(0, 0, screenwidth, screenheight);
+        layeredPane.add(this, Integer.valueOf(0)); // bottom layer
 
         // UI LAYER
-        uiPanel = new JPanel();
-        uiPanel.setLayout(null);
+        uiPanel = new JPanel(null);
         uiPanel.setOpaque(false);
-        uiPanel.setSize(screenwidth,screenheight);
-        uiPanel.setLocation(0,0);
+        uiPanel.setBounds(0, 0, screenwidth, screenheight);
+        layeredPane.add(uiPanel, Integer.valueOf(1)); // top layer
 
-
-        // MENU BAR (hidden at start)
-        menu = new MBar();
-        menu.setVisible(true);
         // MENU BUTTON
-        JButton menuButton = new JButton("");
-        menuButton.setBounds(10, 10, 80, 40);
+        JButton menuButton = new JButton();
+        menuButton.setBounds(10, 10, 50, 50);
         menuButton.setBackground(new Color(0,0,0));
 
         menuButton.addActionListener(e -> {
-            MBar m = new MBar();
+            new MBar(ingredientList, recipeType);
         });
 
         uiPanel.add(menuButton);
-        uiPanel.setVisible(true);
 
-        jframe.add(this);
-        jframe.add(uiPanel);
+        jframe.add(layeredPane);
         jframe.setVisible(true);
     }
 

@@ -49,10 +49,9 @@ public class Selections extends JPanel implements Runnable {
 
         JButton cake = createCakeButton(180, 280);
         cake.addActionListener(e -> {
-            S1 s1 = new S1();
+            ingredientList.loadCake();
+            S1 s1 = new S1(ingredientList);
             s1.startGamethread();
-            MBar m = new MBar();
-            m.setVisible(true);
             running = false;
             jframe.dispose();
         });
@@ -60,16 +59,16 @@ public class Selections extends JPanel implements Runnable {
         JButton fish = createFishButton(480, 300);
         fish.addActionListener(e -> {
            S2 s2 = new S2();
+           ingredientList.loadSushi();
            s2.startGamethread();
-           MBar m1 = new MBar();
-           m1.setVisible(true);
             running = false;
             jframe.dispose();
         });
         //test button
+        String recipe = "CAKE";
         JButton testbutton = createTestButton(0, 0);
         testbutton.addActionListener(e -> {
-                MBar mbar = new MBar();
+                 new MBar(ingredientList, recipe);
 
         });
 

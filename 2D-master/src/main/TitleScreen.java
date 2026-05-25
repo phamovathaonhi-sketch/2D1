@@ -12,10 +12,9 @@ public class TitleScreen extends JPanel implements Runnable {
 
     private JFrame jframe;
     private TitleBackground background;
-    private IngredientList ingredientList;
-
     private Thread gameThread;
     private boolean running = true;
+    IngredientList ingredientList;
 
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
@@ -56,8 +55,8 @@ public class TitleScreen extends JPanel implements Runnable {
                 getClass().getResource("/Images/pixil-frame-0.png")));
 
         startButton.addActionListener(e -> {
+            IngredientList ingredientList = new IngredientList();
             new Selections(ingredientList);
-            running = false;
             jframe.dispose();
         });
 
