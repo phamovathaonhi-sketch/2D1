@@ -1,24 +1,18 @@
 package main;
 
 import Mbar.MBar;
-import Tile.TileManager;
-import gameChar.Player;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
 
-public class S1 extends GamePanel{
+public class S1 extends GamePanel {
 
     private JFrame jframe;
+    private JPanel uiPanel;
+    private MBar menu;
+
     private Thread gamethread;
-    private MBar bar;
-
-    // ===== FPS =====
     int FPS = 60;
-
 
     public S1() {
         jframe = new JFrame("Farm1");
@@ -26,59 +20,59 @@ public class S1 extends GamePanel{
 
         this.addKeyListener(K);
         this.setFocusable(true);
-        this.requestFocusInWindow();
     }
 
     private void init() {
+
         jframe.setSize(screenwidth, screenheight);
         jframe.setLocationRelativeTo(null);
         jframe.setResizable(false);
-
-        try {
-            InputStream is = getClass().getResourceAsStream(
-                    "/Images/a34c95dc15ad78b97bb6c5fd681f8579.jpg");
-            if (is != null) {
-                jframe.setIconImage(ImageIO.read(is));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        JButton mBar = MenuButton(0,0);
-        mBar.addActionListener(e -> new MBar("S1"));
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jframe.setLayout(null);
 
+        // GAME LAYER
         this.setBounds(0, 0, screenwidth, screenheight);
-        this.setDoubleBuffered(true);
-        this.add(mBar);
+
+        // UI LAYER
+        uiPanel = new JPanel();
+        uiPanel.setLayout(null);
+        uiPanel.setOpaque(false);
+        uiPanel.setBounds(0, 0, screenwidth, screenheight);
+
+        // MENU BAR (hidden at start)
+        menu = new MBar();
+        menu.setVisible(true);
+        // MENU BUTTON
+        JButton menuButton = new JButton("Menu");
+        menuButton.setBounds(10, 10, 80, 40);
+        menuButton.setBackground(new Color(0,0,0));
+
+        menuButton.addActionListener(e -> {
+            MBar m = new MBar();
+        });
+
+        uiPanel.add(menuButton);
+        uiPanel.setVisible(true);
 
         jframe.add(this);
+        jframe.add(uiPanel);
         jframe.setVisible(true);
     }
+
 
     public void startGamethread() {
         gamethread = new Thread(this);
         gamethread.start();
     }
 
-    public JButton MenuButton(int x, int y){
-        JButton button = new JButton();
-        button.setSize(50,50);
-        button.setLocation(x,y);
-        button.setBackground(new Color(238, 154, 154));
-        button.addActionListener(e ->{
-            new MBar("S1");
-        });
-        return button;
-    }
-
-
-
     @Override
     public void run() {
-        double drawInterval = 1_000_000_000/ FPS;
+
+        double drawInterval = 1_000_000_000 / FPS;
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while (gamethread != null) {
+
             update();
             repaint();
 
@@ -86,9 +80,7 @@ public class S1 extends GamePanel{
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime /= 1_000_000;
 
-                if (remainingTime < 0) {
-                    remainingTime = 0;
-                }
+                if (remainingTime < 0) remainingTime = 0;
 
                 Thread.sleep((long) remainingTime);
                 nextDrawTime += drawInterval;

@@ -1,5 +1,7 @@
 package main;
 
+import ingredientList.IngredientList;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +12,7 @@ public class TitleScreen extends JPanel implements Runnable {
 
     private JFrame jframe;
     private TitleBackground background;
+    private IngredientList ingredientList;
 
     private Thread gameThread;
     private boolean running = true;
@@ -53,7 +56,7 @@ public class TitleScreen extends JPanel implements Runnable {
                 getClass().getResource("/Images/pixil-frame-0.png")));
 
         startButton.addActionListener(e -> {
-            new Selections();
+            new Selections(ingredientList);
             running = false;
             jframe.dispose();
         });

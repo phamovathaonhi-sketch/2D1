@@ -6,16 +6,17 @@ import main.TitleScreen;
 
 import javax.swing.*;
 import java.awt.*;
-import java.net.URL;
 
 public class MBar extends JPanel {
     private JFrame jFrame;
     private Thread thread;
     Selections selections;
-    private String currentStage;
 
-    public MBar(String currentStage){
-        this.currentStage = currentStage;
+    S1 s1;
+
+
+    public MBar(){
+
         jFrame = new JFrame("Menu Bar");
         init();
     }
@@ -41,6 +42,8 @@ public class MBar extends JPanel {
         });
 
         JButton ingredientbutton = ingredientButton(40, 190);
+        ingredientbutton.addActionListener(e -> {
+        });
         JButton instructionsbutton = instructionsButton(40,240);
 
 

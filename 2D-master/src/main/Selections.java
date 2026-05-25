@@ -1,6 +1,7 @@
 package main;
 
 import Mbar.MBar;
+import ingredientList.IngredientList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -14,11 +15,13 @@ public class Selections extends JPanel implements Runnable {
     private JFrame jframe;
     private Thread gameThread;
     private boolean running = true;
+    private IngredientList ingredientList;
 
     public static final int WIDTH = 800;
     public static final int HEIGHT = 600;
 
-    public Selections() {
+    public Selections(IngredientList ingredientList) {
+        this.ingredientList = ingredientList;
         jframe = new JFrame("Selections");
         init();
     }
@@ -48,6 +51,8 @@ public class Selections extends JPanel implements Runnable {
         cake.addActionListener(e -> {
             S1 s1 = new S1();
             s1.startGamethread();
+            MBar m = new MBar();
+            m.setVisible(false);
             running = false;
             jframe.dispose();
         });
@@ -56,13 +61,16 @@ public class Selections extends JPanel implements Runnable {
         fish.addActionListener(e -> {
            S2 s2 = new S2();
            s2.startGamethread();
+           MBar m1 = new MBar();
+           m1.setVisible(true);
             running = false;
             jframe.dispose();
         });
         //test button
         JButton testbutton = createTestButton(0, 0);
         testbutton.addActionListener(e -> {
-                MBar mbar = new MBar("S1");
+                MBar mbar = new MBar();
+
         });
 
         this.add(cake);
@@ -109,11 +117,9 @@ public class Selections extends JPanel implements Runnable {
     public JButton createTestButton(int x, int y ){
         JButton jbutton3 = new JButton();
         jbutton3.setBounds(x,y, 50,50);
-        jbutton3.setBackground(new Color(0,0,0));
+        jbutton3.setBackground(new Color(255, 219, 219));
         jbutton3.setVisible(true);
         return jbutton3;
-
-
     }
 
 

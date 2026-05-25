@@ -2,6 +2,7 @@ package gameChar;
 import main.GamePanel;
 import main.Keyhandler;
 import main.S1;
+import main.S2;
 
 
 import javax.imageio.ImageIO;
@@ -9,7 +10,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-public class Player extends Entity{
+public class Player extends Entity {
     GamePanel gamePanel;
     Keyhandler keyhandler;
     public int sX;
@@ -26,6 +27,7 @@ public class Player extends Entity{
         setDefault();
         getImage();
     }
+
     public void setDefault(){
         for (int row = 0; row < gamePanel.maxWorldRow; row++) {
             for (int col = 0; col < gamePanel.maxWorldCol; col++) {
