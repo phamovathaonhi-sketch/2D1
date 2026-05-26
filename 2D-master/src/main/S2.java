@@ -1,55 +1,69 @@
 package main;
 
-import javax.imageio.ImageIO;
+import Mbar.MBar;
+import ingredientList.IngredientList;
+
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
 
 public class S2 extends GamePanel {
 
     private JFrame jframe;
+    private JPanel uiPanel;
+    private IngredientList ingredientList;
+    private String recipeType = "SUSHI";
+
     private Thread gamethread;
-    // ===== FPS =====
     int FPS = 60;
 
-
-
-    public S2() {
+    public S2(IngredientList ingredientList) {
+        this.ingredientList = ingredientList;
         jframe = new JFrame("Farm2");
         init();
-        tileManager.loadMap2();
 
         this.addKeyListener(K);
         this.setFocusable(true);
-        this.requestFocusInWindow();
-
     }
 
     private void init() {
+
         jframe.setSize(screenwidth, screenheight);
         jframe.setLocationRelativeTo(null);
         jframe.setResizable(false);
-
-        try {
-            InputStream is = getClass().getResourceAsStream(
-                    "/Images/a34c95dc15ad78b97bb6c5fd681f8579.jpg");
-            if (is != null) {
-                jframe.setIconImage(ImageIO.read(is));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         jframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        // LAYERED PANE
+        JLayeredPane layeredPane = new JLayeredPane();
+        layeredPane.setBounds(0, 0, screenwidth, screenheight);
+
+        // GAME LAYER
         this.setBounds(0, 0, screenwidth, screenheight);
-        this.setDoubleBuffered(true);
+        layeredPane.add(this, Integer.valueOf(0)); // bottom layer
 
-        jframe.add(this);
+        // UI LAYER
+        uiPanel = new JPanel(null);
+        uiPanel.setOpaque(false);
+        uiPanel.setBounds(0, 0, screenwidth,screenheight);
+        layeredPane.add(uiPanel, Integer.valueOf(1)); // top layer
+
+        // MENU BUTTON
+        JButton menuButton = new JButton();
+        menuButton.setBounds(10, 10, 50, 50);
+        menuButton.setBackground(new Color(0,0,0));
+        menuButton.setFocusable(false);
+
+
+        menuButton.addActionListener(e -> {
+            new MBar(ingredientList, recipeType);
+        });
+
+        uiPanel.add(menuButton);
+
+        jframe.add(layeredPane);
         jframe.setVisible(true);
-
+        this.requestFocusInWindow();
     }
+
 
     public void startGamethread() {
         gamethread = new Thread(this);
@@ -58,42 +72,43 @@ public class S2 extends GamePanel {
 
     @Override
     public void run() {
-        double drawInterval = 1_000_000_000 / FPS;
-        double nextDraw = System.nanoTime() + drawInterval;
 
-        while (gamethread != null){
+        double drawInterval = 1_000_000_000 / FPS;
+        double nextDrawTime = System.nanoTime() + drawInterval;
+
+        while (gamethread != null) {
+
             update();
             repaint();
+
             try {
-                double remainingTime = nextDraw - System.nanoTime();
+                double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime /= 1_000_000;
-                if (remainingTime <=0){
-                    remainingTime = 0;
-                }
+
+                if (remainingTime < 0) remainingTime = 0;
+
                 Thread.sleep((long) remainingTime);
-                nextDraw += drawInterval;
-            } catch (RuntimeException e) {
-                throw new RuntimeException(e);
+                nextDrawTime += drawInterval;
+
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         }
     }
-    public void update(){
+
+    public void update() {
         p.update();
     }
-
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
+
         tileManager.draw(g2);
-
         p.paint(g2);
+
         g2.dispose();
-
     }
-
-    }
+}

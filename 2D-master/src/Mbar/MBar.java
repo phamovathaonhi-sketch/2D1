@@ -13,9 +13,6 @@ public class MBar extends JPanel {
     private IngredientList ingredientList;
     private String recipeType;
 
-    S1 s1;
-
-
     public MBar(IngredientList ingredientList, String recipeType){
         this.ingredientList= ingredientList;
         this.recipeType = recipeType;
@@ -39,7 +36,7 @@ public class MBar extends JPanel {
 
         JButton endbutton = endButton(40, 140);
         endbutton.addActionListener(e -> {
-            S2 s2 = new S2();
+            S2 s2 = new S2(ingredientList);
             s2.startGamethread();
             jFrame.dispose();
         });

@@ -67,6 +67,9 @@ public class TitleScreen extends JPanel implements Runnable {
 
         jframe.setVisible(true);
     }
+    public void closeWindow(){
+        jframe.dispose();
+    }
 
     private void startGameThread() {
         gameThread = new Thread(this);

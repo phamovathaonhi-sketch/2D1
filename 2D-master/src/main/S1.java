@@ -10,7 +10,6 @@ public class S1 extends GamePanel {
 
     private JFrame jframe;
     private JPanel uiPanel;
-    private MBar menu;
     private IngredientList ingredientList;
     private String recipeType = "CAKE";
 
@@ -44,13 +43,15 @@ public class S1 extends GamePanel {
         // UI LAYER
         uiPanel = new JPanel(null);
         uiPanel.setOpaque(false);
-        uiPanel.setBounds(0, 0, screenwidth, screenheight);
+        uiPanel.setBounds(0, 0, screenwidth,screenheight);
         layeredPane.add(uiPanel, Integer.valueOf(1)); // top layer
 
         // MENU BUTTON
         JButton menuButton = new JButton();
         menuButton.setBounds(10, 10, 50, 50);
         menuButton.setBackground(new Color(0,0,0));
+        menuButton.setFocusable(false);
+
 
         menuButton.addActionListener(e -> {
             new MBar(ingredientList, recipeType);
@@ -60,6 +61,10 @@ public class S1 extends GamePanel {
 
         jframe.add(layeredPane);
         jframe.setVisible(true);
+        this.requestFocusInWindow();
+    }
+    public void closeWindow(){
+        jframe.dispose();
     }
 
 
