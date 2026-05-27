@@ -1,8 +1,6 @@
 package Mbar;
-import ingredientList.IngredientList;
-import main.S1;
+import ingredient.IngredientList;
 import main.S2;
-import main.Selections;
 import main.TitleScreen;
 
 import javax.swing.*;
@@ -22,7 +20,7 @@ public class MBar extends JPanel {
 
     public void init(){
         jFrame.setSize(200, 320);
-        jFrame.setLocation(0,0);
+        jFrame.setLocation(380,180);
         jFrame.setResizable(false);
         jFrame.setVisible(true);
 

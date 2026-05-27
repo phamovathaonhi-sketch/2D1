@@ -1,7 +1,7 @@
 package main;
 
 import Mbar.MBar;
-import ingredientList.IngredientList;
+import ingredient.IngredientList;
 
 import javax.swing.*;
 import java.awt.*;

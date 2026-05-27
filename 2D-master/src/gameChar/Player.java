@@ -27,6 +27,10 @@ public class Player extends Entity {
         setDefault();
         getImage();
     }
+    public Rectangle getBounds() {
+        return new Rectangle(worldx, worldy, gamePanel.tileSize, gamePanel.tileSize);
+    }
+
 
     public void setDefault(){
         for (int row = 0; row < gamePanel.maxWorldRow; row++) {

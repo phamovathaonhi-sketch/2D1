@@ -1,4 +1,4 @@
-package ingredientList;
+package ingredient;
 
 import javax.swing.*;
 import java.awt.*;

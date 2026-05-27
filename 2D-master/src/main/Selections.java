@@ -1,7 +1,6 @@
 package main;
 
-import Mbar.MBar;
-import ingredientList.IngredientList;
+import ingredient.IngredientList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -1,6 +1,6 @@
 package main;
 
-import ingredientList.IngredientList;
+import ingredient.IngredientList;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
