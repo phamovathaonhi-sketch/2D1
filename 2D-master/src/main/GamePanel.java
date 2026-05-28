@@ -17,8 +17,6 @@ public abstract class GamePanel extends JPanel implements Runnable  {
     Keyhandler K = new Keyhandler();
     public final int  maxWorldCol = 50;
     public final int maxWorldRow = 50;
-    public final int worldWidth = tileSize* maxWorldCol;
-    public final int worldHeight = tileSize * maxWorldRow;
     public TileManager tileManager;
     public Collisoncheck c = new Collisoncheck(this);
     public Player p;

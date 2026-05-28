@@ -40,4 +40,5 @@ public class Ingredient {
     public Image getImg(){
         return img;
     }
+
 }

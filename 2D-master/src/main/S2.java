@@ -1,10 +1,14 @@
 package main;
 
 import Mbar.MBar;
+import ingredient.Bag;
+import ingredient.BagPopUp;
+import ingredient.Ingredient;
 import ingredient.IngredientList;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class S2 extends GamePanel {
 
@@ -12,6 +16,9 @@ public class S2 extends GamePanel {
     private JPanel uiPanel;
     private IngredientList ingredientList;
     private String recipeType = "SUSHI";
+    private Bag bag = new Bag();
+
+    private ArrayList<Ingredient> mapIngredients = new ArrayList<>();
 
     private Thread gamethread;
     int FPS = 60;
@@ -45,23 +52,40 @@ public class S2 extends GamePanel {
         uiPanel.setOpaque(false);
         uiPanel.setBounds(0, 0, screenwidth,screenheight);
         layeredPane.add(uiPanel, Integer.valueOf(1)); // top layer
+        // Bag button
+        JButton bagButton = new JButton();
+        bagButton.setBounds(10,490,50,50);
+        bagButton.setIcon(new ImageIcon(getClass().getResource("/Images/bag.png")));
+        bagButton.setBorderPainted(false);
+        bagButton.setLayout(null);
+        bagButton.setFocusable(false);
 
         // MENU BUTTON
         JButton menuButton = new JButton();
         menuButton.setBounds(10, 10, 50, 50);
-        menuButton.setBackground(new Color(0,0,0));
+        menuButton.setIcon(new ImageIcon(getClass().getResource("/Images/menubutton.png")));
         menuButton.setFocusable(false);
 
 
         menuButton.addActionListener(e -> {
-            new MBar(ingredientList, recipeType);
+            new MBar(ingredientList, recipeType, jframe);
+        });
+        mapIngredients.add(new Ingredient("egg", 300,200));
+        mapIngredients.add(new Ingredient("fish", 500,300));
+        bagButton.addActionListener(e -> {
+            BagPopUp.show(jframe, bag);
+            this.requestFocusInWindow();
         });
 
         uiPanel.add(menuButton);
+        uiPanel.add(bagButton);
 
         jframe.add(layeredPane);
         jframe.setVisible(true);
         this.requestFocusInWindow();
+    }
+    public void closeWindow(){
+        jframe.dispose();
     }
 
 
@@ -98,6 +122,13 @@ public class S2 extends GamePanel {
 
     public void update() {
         p.update();
+
+        for (Ingredient ing: mapIngredients){
+            if (!ing.isCollected() && p.getBounds().intersects(ing.getBounds())){
+                ing.collect();
+                bag.add(ing);
+            }
+        }
     }
 
     @Override
@@ -107,7 +138,11 @@ public class S2 extends GamePanel {
         Graphics2D g2 = (Graphics2D) g;
 
         tileManager.draw(g2);
+        for (Ingredient ing: mapIngredients){
+            ing.draw(g2, p);
+        }
         p.paint(g2);
+
 
         g2.dispose();
     }

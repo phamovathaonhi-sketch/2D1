@@ -68,10 +68,13 @@ public class S1 extends GamePanel {
 
 
         menuButton.addActionListener(e -> {
-            new MBar(ingredientList, recipeType);
+            new MBar(ingredientList, recipeType, jframe);
         });
         mapIngredients.add(new Ingredient("egg", 300,200));
-        mapIngredients.add(new Ingredient("fish", 500,300));
+        mapIngredients.add(new Ingredient("fish", 650,750));
+        mapIngredients.add(new Ingredient("flour", 750,1500));
+        mapIngredients.add(new Ingredient("milk", 280, 1300));
+        mapIngredients.add(new Ingredient("milk",20,1200));
         bagButton.addActionListener(e -> {
             BagPopUp.show(jframe, bag);
             this.requestFocusInWindow();
@@ -84,11 +87,6 @@ public class S1 extends GamePanel {
         jframe.setVisible(true);
         this.requestFocusInWindow();
     }
-    public void closeWindow(){
-        jframe.dispose();
-    }
-
-
     public void startGamethread() {
         gamethread = new Thread(this);
         gamethread.start();

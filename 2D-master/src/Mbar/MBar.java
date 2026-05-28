@@ -1,7 +1,8 @@
 package Mbar;
 import ingredient.IngredientList;
 import main.S2;
-import main.TitleScreen;
+import main.Selections;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,10 +11,12 @@ public class MBar extends JPanel {
     private JFrame jFrame;
     private IngredientList ingredientList;
     private String recipeType;
+    private JFrame gamewindow;
 
-    public MBar(IngredientList ingredientList, String recipeType){
+    public MBar(IngredientList ingredientList, String recipeType, JFrame gamewindow){
         this.ingredientList= ingredientList;
         this.recipeType = recipeType;
+        this.gamewindow = gamewindow;
         jFrame = new JFrame("Menu Bar");
         init();
     }
@@ -28,7 +31,8 @@ public class MBar extends JPanel {
 
         JButton HomeButton = createHomebutton(40, 90);
         HomeButton.addActionListener(e -> {
-            TitleScreen titleScreen = new TitleScreen();
+            Selections selections = new Selections(ingredientList);
+            gamewindow.dispose();
             jFrame.dispose();
         });
 
@@ -49,8 +53,6 @@ public class MBar extends JPanel {
             ingredientList.showWindow();
         });
         JButton instructionsbutton = instructionsButton(40,240);
-
-
         // Add the buttons to JPanel
         this.add(HomeButton);
         this.add(endbutton);
@@ -105,6 +107,7 @@ public class MBar extends JPanel {
 
         return instruction;
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {

@@ -5,6 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.*;
+import java.util.ArrayList;
 
 public class IngredientList extends JPanel {
 
@@ -13,6 +14,8 @@ public class IngredientList extends JPanel {
     private JList<String> list;
     private JScrollPane scrollPane;
     private JTextField textField;
+    private Ingredient ing;
+    private ArrayList<Ingredient> mapIngredients = new ArrayList<>();
 
     public IngredientList() {
         jframe = new JFrame("List of ingredients");
@@ -63,6 +66,7 @@ public class IngredientList extends JPanel {
         loadFile("/map/ListingredientSUSHI.txt");
     }
 
+
     private void loadFile(String path) {
         InputStream is = getClass().getResourceAsStream(path);
         if (is == null) return;
@@ -73,13 +77,14 @@ public class IngredientList extends JPanel {
                 for (String element : line.split(" ")) {
                     if (!element.trim().isEmpty()) {
                         model.addElement(element);
-                    }
+                        }
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     @Override
     protected void paintComponent(Graphics g) {

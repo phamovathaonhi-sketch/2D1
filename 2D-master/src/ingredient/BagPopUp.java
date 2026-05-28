@@ -41,7 +41,7 @@ public class BagPopUp {
                     int x = startX + col * (slotSize + gap);
                     int y = startY + row * (slotSize + gap);
 
-                    g2.setColor(new Color(0, 0, 0, 90));
+                    g2.setColor(new Color(191, 119, 119, 90));
                     g2.fillRoundRect(x, y, slotSize, slotSize, 8, 8);
                     g2.setColor(new Color(210, 180, 120));
                     g2.drawRoundRect(x, y, slotSize, slotSize, 8, 8);
@@ -55,10 +55,6 @@ public class BagPopUp {
                         g2.drawString(ing.getName(), x + 3, y + slotSize - 3);
                     }
                 }
-
-                g2.setColor(Color.WHITE);
-                g2.setFont(new Font("Arial", Font.PLAIN, 12));
-                g2.drawString("Double-click an item to remove it", 20, 210);
             }
         };
 
