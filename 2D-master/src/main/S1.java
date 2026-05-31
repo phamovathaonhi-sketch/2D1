@@ -11,6 +11,7 @@ import ingredient.IngredientList;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class S1 extends GamePanel {
 
@@ -74,12 +75,38 @@ public class S1 extends GamePanel {
         menuButton.addActionListener(e -> {
             new MBar(ingredientList, recipeType, jframe);
         });
-        gate = new Gate(10*48,10*48);
-        mapIngredients.add(new Ingredient("egg", 300,200));
-        mapIngredients.add(new Ingredient("fish", 650,750));
-        mapIngredients.add(new Ingredient("flour", 750,1500));
-        mapIngredients.add(new Ingredient("milk", 280, 1300));
-        mapIngredients.add(new Ingredient("milk",20,1200));
+        gate = new Gate(45*48,30*48);
+        String[][] ingredientByTile = {{"fish", "seaweed"},{"wheat","flour"},{"milk","soysauce","strawberry","sugar","vinegar","egg","vanilla"}};
+        int[]tileTypes = {0,4,5};
+        int amount = 3;
+        Random rnd = new Random();
+
+        for (int t = 0; t < tileTypes.length; t++) {
+            int tileType = tileTypes[t];
+            ArrayList<Integer> xPositions = new ArrayList<>();
+            ArrayList<Integer> yPositions = new ArrayList<>();
+
+            for (int row = 0; row < tileManager.mapTileNum[0].length; row++) {
+                for (int col = 0; col < tileManager.mapTileNum.length; col++) {
+                    if (tileManager.mapTileNum[col][row] == tileType) {
+                        xPositions.add(col * 48);
+                        yPositions.add(row * 48);
+                    }
+                }
+            }
+
+            for (String name : ingredientByTile[t]) {
+                for (int i = 0; i < amount; i++) {
+                    if (!xPositions.isEmpty()) {
+                        int index = rnd.nextInt(xPositions.size());
+                        int x = xPositions.get(index);
+                        int y = yPositions.get(index);
+                        mapIngredients.add(new Ingredient(name, x, y));
+                    }
+                }
+            }
+        }
+
         bagButton.addActionListener(e -> {
             BagPopUp.show(jframe, bag);
             this.requestFocusInWindow();

@@ -1,5 +1,6 @@
 egg
 milk
 flour
-vannila
+vanilla
 sugar
+strawberry

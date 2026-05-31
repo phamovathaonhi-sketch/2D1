@@ -90,9 +90,9 @@ public class Kitchen extends JPanel{
                             if (placedIngredients.size() == recipeOrder.size()){
                                 jFrame.dispose();
                                 if (recipeType.equals("CAKE")){
-                                    new Win("/Images/wincake.png");
+                                    new Win("wincake.png");
                                 }else{
-                                    new Win("/Images/winsushi.png");
+                                    new Win("winsushi.png");
                                 }
                                 return;
                             }
