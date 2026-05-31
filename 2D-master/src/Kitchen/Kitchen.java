@@ -1,5 +1,6 @@
 package Kitchen;
 
+import Mbar.MBar;
 import ingredient.Bag;
 import ingredient.Ingredient;
 import ingredient.IngredientList;
@@ -8,8 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
-import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class Kitchen extends JPanel{
@@ -54,6 +53,14 @@ public class Kitchen extends JPanel{
         this.setBounds(0, 0, 800, 600);
         jFrame.add(this);
         jFrame.setVisible(true);
+        JButton menuButton = new JButton();
+        menuButton.setBounds(10, 10, 50, 50);
+        menuButton.setIcon(new ImageIcon(getClass().getResource("/Images/menubutton.png")));
+        menuButton.setFocusable(false);
+        menuButton.addActionListener(e -> {
+            new MBar(ingredientList, recipeType, jFrame);
+        });
+        this.add(menuButton);
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {

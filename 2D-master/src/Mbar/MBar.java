@@ -1,4 +1,5 @@
 package Mbar;
+import Kitchen.Lose;
 import ingredient.IngredientList;
 import main.S2;
 import main.Selections;
@@ -38,9 +39,7 @@ public class MBar extends JPanel {
 
         JButton endbutton = endButton(40, 140);
         endbutton.addActionListener(e -> {
-            S2 s2 = new S2(ingredientList);
-            s2.startGamethread();
-            jFrame.dispose();
+            new Lose("loseScreen.png");
         });
 
         JButton ingredientbutton = ingredientButton(40, 190);
@@ -52,12 +51,10 @@ public class MBar extends JPanel {
             }
             ingredientList.showWindow();
         });
-        JButton instructionsbutton = instructionsButton(40,240);
         // Add the buttons to JPanel
         this.add(HomeButton);
         this.add(endbutton);
         this.add(ingredientbutton);
-        this.add(instructionsbutton);
 
         jFrame.add(this);
         jFrame.setVisible(true);
@@ -97,18 +94,6 @@ public class MBar extends JPanel {
 
         return ingredient;
     }
-    private JButton instructionsButton(int x, int y){
-        JButton instruction = new JButton();
-        instruction.setBounds(x,y, 120,40);
-        instruction.setText("Instruction");
-        instruction.setForeground(Color.pink);
-        instruction.setFocusPainted(false);
-        instruction.setVisible(true);
-
-        return instruction;
-    }
-
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
