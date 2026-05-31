@@ -16,6 +16,7 @@ public class IngredientList extends JPanel {
     private JTextField textField;
     private Ingredient ing;
     private ArrayList<Ingredient> mapIngredients = new ArrayList<>();
+    private ArrayList<String> originalOrder = new ArrayList<>();
 
     public IngredientList() {
         jframe = new JFrame("List of ingredients");
@@ -55,15 +56,37 @@ public class IngredientList extends JPanel {
         init();
         jframe.setVisible(true);
     }
+    public boolean isEmpty() {
+        return model.getSize() == 0;  // returns true if no ingredients left
+    }
+    public ArrayList<String> getIngredients() {
+       return originalOrder;
+    }
+    public void removeIng(String name) {
+        for (int i = 0; i < model.getSize(); i++) {
+            if (model.get(i).equalsIgnoreCase(name)) {
+                model.remove(i);
+                return;
+            }
+        }
+    }
 
     public void loadCake() {
         model.clear();
+        originalOrder.clear();
         loadFile("/map/ListingredientCAKE.txt");
+        for (int i = 0; i< model.getSize(); i++){
+            originalOrder.add(model.get(i));
+        }
     }
 
     public void loadSushi() {
         model.clear();
+        originalOrder.clear();
         loadFile("/map/ListingredientSUSHI.txt");
+        for (int i = 0; i<model.getSize(); i++){
+            originalOrder.add(model.get(i));
+        }
     }
 
 

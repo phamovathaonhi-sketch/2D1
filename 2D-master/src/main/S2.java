@@ -1,5 +1,7 @@
 package main;
 
+import Kitchen.Gate;
+import Kitchen.Kitchen;
 import Mbar.MBar;
 import ingredient.Bag;
 import ingredient.BagPopUp;
@@ -17,6 +19,8 @@ public class S2 extends GamePanel {
     private IngredientList ingredientList;
     private String recipeType = "SUSHI";
     private Bag bag = new Bag();
+    private Gate gate;
+    private boolean gateVisible = false;
 
     private ArrayList<Ingredient> mapIngredients = new ArrayList<>();
 
@@ -70,8 +74,12 @@ public class S2 extends GamePanel {
         menuButton.addActionListener(e -> {
             new MBar(ingredientList, recipeType, jframe);
         });
+        gate = new Gate(10*48,10*48);
         mapIngredients.add(new Ingredient("egg", 300,200));
-        mapIngredients.add(new Ingredient("fish", 500,300));
+        mapIngredients.add(new Ingredient("fish", 650,750));
+        mapIngredients.add(new Ingredient("flour", 750,1500));
+        mapIngredients.add(new Ingredient("milk", 280, 1300));
+        mapIngredients.add(new Ingredient("milk",20,1200));
         bagButton.addActionListener(e -> {
             BagPopUp.show(jframe, bag);
             this.requestFocusInWindow();
@@ -84,11 +92,6 @@ public class S2 extends GamePanel {
         jframe.setVisible(true);
         this.requestFocusInWindow();
     }
-    public void closeWindow(){
-        jframe.dispose();
-    }
-
-
     public void startGamethread() {
         gamethread = new Thread(this);
         gamethread.start();
@@ -127,8 +130,18 @@ public class S2 extends GamePanel {
             if (!ing.isCollected() && p.getBounds().intersects(ing.getBounds())){
                 ing.collect();
                 bag.add(ing);
+                ingredientList.removeIng(ing.getName());
             }
         }
+        if (ingredientList.isEmpty()){
+            gateVisible = true;
+        }
+        if (gateVisible&& p.getBounds().intersects(gate.getBounds())){
+            gamethread = null;
+            jframe.dispose();
+            new Kitchen(ingredientList,bag, recipeType);
+        }
+
     }
 
     @Override
@@ -140,6 +153,10 @@ public class S2 extends GamePanel {
         tileManager.draw(g2);
         for (Ingredient ing: mapIngredients){
             ing.draw(g2, p);
+        }
+        if (gateVisible){
+            gate.draw(g2, p);
+
         }
         p.paint(g2);
 
